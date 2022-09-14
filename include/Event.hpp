@@ -22,4 +22,5 @@ class Event {
         void loadData(std::string);
 
         std::string str() const;
+
 };
