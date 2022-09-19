@@ -1,3 +1,13 @@
+/**
+ * @file EventLog.hpp
+ * @author Adrian Hernandez (a01747038@tec.mx)
+ * @brief EventLog class declaration
+ * @version 0.1
+ * @date 2022-09-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #pragma once
 
 #include <string>
@@ -6,18 +16,21 @@
 #include "Event.hpp"
 
 class EventLog {
-    public:
+    private:
         std::vector<Event> events;
     
-        // radix sort like events
-        void sortEvents();
+        // radix sort like events 
+        void sortEvents(int, int, int);
 
         // get index position of event with given date
         int getEventIndex(std::string) const;
 
-    private:
+    public:
         EventLog() = default;
 
         void loadEvents(std::string);
         std::vector<Event> getEventsByRange(std::string, std::string) const; 
+
+        // for vizualization
+        void displayEvents() const;
 };
