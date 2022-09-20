@@ -89,6 +89,7 @@ Event::Event(std::string _message, std::string _date) {
     
     message = _message;
     date = _date;
+    updateNumDate();
 }
 
 std::string Event::getMessage() const {
@@ -145,6 +146,6 @@ void Event::loadData(std::string data) {
 
 std::string Event::str() const {
     std::stringstream msg;
-    msg << "[ " << date << " " << message << " ]"; 
+    msg << date << " " << message; 
     return msg.str();
 }

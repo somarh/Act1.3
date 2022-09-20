@@ -14,6 +14,7 @@
 #include <fstream>
 #include <string>   
 #include <vector>
+#include <cmath>
 
 #include <EventLog.hpp>
 
@@ -65,9 +66,30 @@ void EventLog::sortEvents(int start, int end, int level) {
     }
 }
 
-// void EventLog::getEventIndex(std::string date) const {
-//     // gets the index of the event with the closest date to date
-// }
+int EventLog::getEventIndex(Event event) const {
+    // gets the index of the event with the closest date to date
+    
+    // date = { month, day, hour, min, sec }
+    // num value searched for comparison
+
+    int lower = 0;    
+    int upper = events.size();
+    int middle = (lower + upper) / 2;
+
+    while (lower <= upper) {
+        middle = (lower + upper) / 2;
+        if (events[middle].getNumDate() == event.getNumDate()) {
+            return middle;
+        }
+        if (events[middle].getNumDate() < event.getNumDate()) {
+            lower = middle + 1;
+        } else {
+            upper = middle - 1;
+        }
+    } 
+    return middle;
+}
+
 
 void EventLog::loadEvents(std::string filePath) {
     std::ifstream mfile(filePath);
@@ -85,10 +107,31 @@ void EventLog::loadEvents(std::string filePath) {
     sortEvents(0, events.size(), 0);
 }
 
-// std::vector<Event> EventLog::getEventsByRange(std::string lowerDate, 
-//                                               std::string upperDate) const {
+void EventLog::saveEvents(std::string filePath) {
+    std::ofstream mfile(filePath);
+
+    for (Event event: events) {
+        mfile << event.str() << "\n";
+    }
+    mfile.close();
+}
+
+std::vector<Event> EventLog::getEventsByRange(std::string startDate, 
+                                              std::string endDate) const {
+    // return 
+    std::vector<Event> selectedEvents;
+    Event startEvent("dummy message", startDate);
+    Event endEvent("dummy message", endDate);
     
-// }
+    int start = getEventIndex(startEvent);
+
+    while (events[start].getNumDate() >= startEvent.getNumDate() && 
+           events[start].getNumDate() <= endEvent.getNumDate()) {
+        selectedEvents.push_back(events[start]);
+        start++;
+    }
+    return selectedEvents;
+}
 
 void EventLog::displayEvents() const {
     for (Event event: events) {

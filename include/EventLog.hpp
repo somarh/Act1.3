@@ -23,7 +23,8 @@ class EventLog {
         void sortEvents(int, int, int);
 
         // get index position of event with given date
-        int getEventIndex(std::string) const;
+        int getEventIndex(Event) const;
+
 
     public:
         EventLog() = default;
@@ -31,6 +32,9 @@ class EventLog {
         void loadEvents(std::string);
         std::vector<Event> getEventsByRange(std::string, std::string) const; 
 
+        // for registering 
+        void saveEvents(std::string);
+        
         // for vizualization
         void displayEvents() const;
 };
