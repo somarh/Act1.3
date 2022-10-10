@@ -144,12 +144,14 @@ Event::Event() {
      constructMap();
 }
 
-Event::Event(std::string _message, std::string _date) {
+Event::Event(std::string _message, std::string _ip, std::string _date) {
     constructMap();
     
     message = _message;
+    ip = _ip;
     date = _date;
     updateNumDate();
+    updateNumIp();
 }
 
 std::string Event::getMessage() const {
@@ -212,7 +214,7 @@ void Event::loadData(std::string data) {
     // add the ip data
     for (int i=0; i<1; i++) {
         
-      while (std::getline(dataStream, temp, ' ')) {
+      while (std::getline(dataStream, temp, ':')) {
         ipStream << temp << ' '; 
     
           }
@@ -220,7 +222,7 @@ void Event::loadData(std::string data) {
       }
 
    // add the rest of the message
-    while (std::getline(dataStream, temp, ' ')) {
+    while (std::getline(ipStream, temp, ' ')) {
        messageStream << temp << " "; 
     }
 
@@ -234,6 +236,6 @@ void Event::loadData(std::string data) {
 
 std::string Event::str() const {
     std::stringstream msg;
-    msg << date << " " << message; 
+    msg << date << " " << ip << " " << message; 
     return msg.str();
 }
