@@ -40,7 +40,6 @@ void Event::updateNumIp(){
   std::stringstream ipStream;
   ipStream << ip;
 
-
   std::string ip_1;
   std::string ip_2;
   std::string ip_3;
@@ -150,8 +149,8 @@ Event::Event(std::string _message, std::string _ip, std::string _date) {
     message = _message;
     ip = _ip;
     date = _date;
-    updateNumDate();
-    updateNumIp();
+//    updateNumDate();
+//   updateNumIp();
 }
 
 std::string Event::getMessage() const {
@@ -214,15 +213,15 @@ void Event::loadData(std::string data) {
     // add the ip data
     for (int i=0; i<1; i++) {
         
-      while (std::getline(dataStream, temp, ':')) {
-        ipStream << temp << ' '; 
+      while (std::getline(dataStream, temp, ' ')) {
+        ipStream << temp << ':'; 
     
           }
     
       }
 
    // add the rest of the message
-    while (std::getline(ipStream, temp, ' ')) {
+    while (std::getline(ipStream, temp, ':')) {
        messageStream << temp << " "; 
     }
 
