@@ -12,7 +12,7 @@
 #pragma once 
 
 #include <Event.hpp>
-
+#include <stdio.h>
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -91,9 +91,10 @@ void Event::updateNumIp() {
     numIp += ip_nvalue * std::pow(12, counter);
     
   }
+
+}
   */
   
-  }
 void Event::updateNumDate() {
     std::stringstream dateStream;
     dateStream << date;
